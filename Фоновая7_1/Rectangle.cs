@@ -41,6 +41,7 @@ namespace Фоновая7_1
                 try
                 {
                     if (value <= 0) throw new Exception("no 0 or lesser");
+                    height = value;
                 }
                 catch (Exception e)
                 {

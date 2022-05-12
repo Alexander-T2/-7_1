@@ -61,6 +61,7 @@ namespace Фоновая7_1
             Show();
             Access();
             Clean();
+            Hide();
             AngleTextBox.Enabled = false;
         }
 
@@ -69,28 +70,44 @@ namespace Фоновая7_1
             Show();
             Access();
             Clean();
+            Hide();
             HeightTextBox.Enabled = false;
         }
         private void Hide()
         {
-            AreaAnsLabel.Visible = true;
-            PerimetrAnsLabel.Visible = true;
-            SideAAnsLabel.Visible = true;
-            SideBAnsLabel.Visible = true;
-            IsSquareAnsLabel.Visible = true;
+            AreaAnsLabel.Visible = false;
+            PerimetrAnsLabel.Visible = false;
+            SideAAnsLabel.Visible = false;
+            SideBAnsLabel.Visible = false;
+            IsSquareAnsLabel.Visible = false;
         }
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            CreateButton.Enabled = false;
             if (RectangleRadioButton.Checked == true)
             {
-                figura = new Rectangle(1, 2);
-                SideBAnsLabel.Text = Convert.ToString(figura.Height);
+                try
+                {
+                    figura = new Rectangle(Convert.ToInt32(HeightTextBox.Text), Convert.ToInt32(SideTextBox.Text));
+                    SideBAnsLabel.Text = Convert.ToString(figura.Height);
+                }
+                catch
+                {
+                    MessageBox.Show("Неправильный формат ввода", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (RombRadioButton.Checked == true)
             {
-                figura = new Romb(1, 30.0);
-                SideBAnsLabel.Text = Convert.ToString(figura.Width);
+                try
+                {
+                    figura = new Romb(Convert.ToInt32(SideTextBox.Text), Convert.ToDouble(AngleTextBox.Text));
+                    SideBAnsLabel.Text = Convert.ToString(figura.Width);
+                }
+                catch
+                {
+                    MessageBox.Show("Неправильный формат ввода", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             AreaAnsLabel.Text = Convert.ToString(figura.Area());
             PerimetrAnsLabel.Text = Convert.ToString(figura.Perimetr());
@@ -111,21 +128,35 @@ namespace Фоновая7_1
         {
             if (RectangleRadioButton.Checked == true)
             {
-                figura.Width = Convert.ToInt32(SideTextBox.Text);
-                figura.Height = Convert.ToInt32(HeightTextBox.Text);
-                SideBAnsLabel.Text = Convert.ToString(figura.Height);
+                try
+                {
+                    figura.Width = Convert.ToInt32(SideTextBox.Text);
+                    figura.Height = Convert.ToInt32(HeightTextBox.Text);
+                    SideBAnsLabel.Text = Convert.ToString(figura.Height);
+                }
+                catch
+                {
+                    MessageBox.Show("Неправильный формат ввода", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (RombRadioButton.Checked == true)
             {
-                figura.Width = Convert.ToInt32(SideTextBox.Text);
-                figura.Alfa = Convert.ToInt32(AngleTextBox.Text);
-                SideBAnsLabel.Text = Convert.ToString(figura.Width);
+                try
+                {
+                    figura.Width = Convert.ToInt32(SideTextBox.Text);
+                    figura.Alfa = Convert.ToDouble(AngleTextBox.Text);
+                    SideBAnsLabel.Text = Convert.ToString(figura.Width);
+                }
+                catch
+                {
+                    MessageBox.Show("Неправильный формат ввода", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             AreaAnsLabel.Text = Convert.ToString(figura.Area());
             PerimetrAnsLabel.Text = Convert.ToString(figura.Perimetr());
             SideAAnsLabel.Text = Convert.ToString(figura.Width);
             string ans;
-            if (figura.Height == figura.Width) ans = "Da";
+            if (figura.isQquare) ans = "Da";
             else ans = "Net";
             IsSquareAnsLabel.Text = ans;
         }

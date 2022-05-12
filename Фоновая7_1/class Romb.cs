@@ -28,6 +28,7 @@ namespace Фоновая7_1
                 try
                 {
                     if (value >= 180 || value <= 0) throw new Exception("imposiible angle");
+                    else alfa = value;
                 }
                 catch (Exception e)
                 {
@@ -54,7 +55,7 @@ namespace Фоновая7_1
         {
             get
             {
-                return height == width & (int)alfa == 90;
+                return (int)alfa == 90;
             }
         }
         override public double Area()
